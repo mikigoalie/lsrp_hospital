@@ -56,8 +56,7 @@ Citizen.CreateThread(function()
 					wait = 500
 					ESX.TriggerServerCallback('lsrp_hos:checkEMS', function(emsRequired)
 						if not emsRequired then
-							ESX.TriggerServerCallback('lsrp_hos:isDead', function(shouldDie)
-								print("dwq")
+							ESX.TriggerServerCallback('lsrp_hos:checkDeath', function(shouldDie)
 								if shouldDie then                                             
 									ESX.TriggerServerCallback('lsrp_hos:canPay', function(canPay)
 										if canPay then

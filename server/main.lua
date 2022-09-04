@@ -33,11 +33,23 @@ end)
     end
 end)]] -- Useless shit for other script of mine, u can delete this
 
-ESX.RegisterServerCallback('lsrp_hos:checkDeath', function(source)
+
+function dump(o)
+	if type(o) == 'table' then
+	   local s = '{ '
+	   for k,v in pairs(o) do
+		  if type(k) ~= 'number' then k = '"'..k..'"' end
+		  s = s .. '['..k..'] = ' .. dump(v) .. ','
+	   end
+	   return s .. '} '
+	else
+	   return tostring(o)
+	end
+end
+
+ESX.RegisterServerCallback('lsrp_hos:checkDeath', function(source, cb)
     local xPlayer = ESX.GetPlayerFromId(source)
-    local ide = xPlayer.identifier
-    print(ide)
-    MySQL.single('SELECT is_dead FROM users WHERE identifier = ?', { ide }, function(row)
+    MySQL.single('SELECT is_dead FROM users WHERE identifier = ?', { xPlayer.identifier }, function(row)
         if row.is_dead then cb(true) else cb(false) end
     end)
 end)
